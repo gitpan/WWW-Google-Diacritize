@@ -15,11 +15,11 @@ WWW::Google::Diacritize - Interface to Google Diacritize API.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 Readonly my $API_VERSION => 'v1';
 Readonly my $LANGUAGES   => ['ar'];
 Readonly my $BASE_URL    => "https://www.googleapis.com/language/diacritize/$API_VERSION";
@@ -177,12 +177,6 @@ either:  the  GNU  General Public License as published by the Free Software Foun
 Artistic License.
 
 See http://dev.perl.org/licenses/ for more information.
-
-By  using  the  Google Diacritize API, you agree to  the  Google Buzz API Terms of Service and
-agree to abide by the Google Diacritize Developer Policies.
-
-http://code.google.com/apis/diacritize/terms.html
-http://code.google.com/apis/diacritize/policies.html
 
 =head1 DISCLAIMER
 
