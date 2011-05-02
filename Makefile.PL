@@ -1,0 +1,20 @@
+use strict;use warnings;
+use ExtUtils::MakeMaker;
+
+WriteMakefile(
+    NAME          => 'WWW::Google::Diacritize',
+    AUTHOR        => q{Mohammad S Anwar <mohammad.anwar@yahoo.com>},
+    VERSION_FROM  => 'lib/WWW/Google/Diacritize.pm',
+    ABSTRACT_FROM => 'lib/WWW/Google/Diacritize.pm',
+    dist          => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
+    clean         => { FILES => 'WWW-Google-Diacritize-*' },
+    PREREQ_PM     => {
+        'Test::More'     => 0,
+        'Readonly'       => 0,
+        'HTTP::Request'  => '1.40',
+        'LWP::UserAgent' => '2.33',
+    },
+    ($ExtUtils::MakeMaker::VERSION >= 6.3002
+      ? ('LICENSE'=> 'perl')
+      : ()),
+);
