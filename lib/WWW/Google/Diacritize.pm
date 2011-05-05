@@ -5,9 +5,9 @@ use strict; use warnings;
 use Carp;
 use Readonly;
 use Data::Dumper;
-use URI::Escape qw/uri_escape/;
 use LWP::UserAgent;
 use HTTP::Request::Common;
+use URI::Escape qw/uri_escape/;
 
 =head1 NAME
 
@@ -15,11 +15,11 @@ WWW::Google::Diacritize - Interface to Google Diacritize API.
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 Readonly my $API_VERSION => 'v1';
 Readonly my $LANGUAGES   => ['ar'];
 Readonly my $BASE_URL    => "https://www.googleapis.com/language/diacritize/$API_VERSION";
@@ -77,6 +77,13 @@ the supported language. Returns data in JSON format.
     | last_letter | Diacritize last letter.                       | true/false | true    |
     | prettyprint | Returns result in human readable format.      | true/false | false   |
     +-------------+-----------------------------------------------+------------+---------+
+
+    use strict; use warnings;
+    use WWW::Google::Diacritize;
+
+    my $api_key    = 'Your_API_Key';
+    my $diacritize = WWW::Google::Diacritize->new($api_key);
+    print $diacritize->set_diacritical_marks({lang => 'ar', prettyprint=>'true', message=>'%D9%85%D8%AB%D8%A7%D9%84%20%D9%84%D8%AA%D8%B4%D9%83%D9%8A%D9%84'});
 
 =cut
 

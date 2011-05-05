@@ -1,5 +1,8 @@
 Revision history for WWW-Google-Diacritize
 
+0.03    Thu May 05 14:57:29 2011
+        - Added example to the pod of method get_diacritical_marks().
+
 0.02    Mon May 02 14:00:00 2011
         - Cleaned up pod for title "LICENSE AND COPYRIGHT".
 
