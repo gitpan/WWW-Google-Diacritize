@@ -1,5 +1,11 @@
 Revision history for WWW-Google-Diacritize
 
+0.04    Tue May 10 12:01:01 2011
+        - Added URI::Escape and JSON to the pre-requisite list of modules in the Build.PL and Makefile.PL.
+        - Updated method set_diacritical_marks() to URL encode the given message.
+        - Updated unit test 02-unit-test.t regarding URL encoding of message.
+        - Updated pod for method set_diacritical_marks().
+
 0.03    Thu May 05 14:57:29 2011
         - Added example to the pod of method get_diacritical_marks().
 

@@ -5,6 +5,8 @@ use strict; use warnings;
 use Carp;
 use Readonly;
 use Data::Dumper;
+
+use JSON;
 use LWP::UserAgent;
 use HTTP::Request::Common;
 use URI::Escape qw/uri_escape/;
@@ -15,11 +17,11 @@ WWW::Google::Diacritize - Interface to Google Diacritize API.
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 Readonly my $API_VERSION => 'v1';
 Readonly my $LANGUAGES   => ['ar'];
 Readonly my $BASE_URL    => "https://www.googleapis.com/language/diacritize/$API_VERSION";
@@ -67,7 +69,7 @@ sub new
 =head2 set_diacritical_marks()
 
 Sets the diacritical marks to the given text  in the given language. Arabic  is currently ONLY
-the supported language. Returns data in JSON format.
+the supported language. Returns the diacritized text back.
 
     +-------------+-----------------------------------------------+------------+---------+
     | Key         | Description                                   | Values     | Default |
@@ -81,9 +83,9 @@ the supported language. Returns data in JSON format.
     use strict; use warnings;
     use WWW::Google::Diacritize;
 
-    my $api_key    = 'Your_API_Key';
+    my $api_key    = 'Your_API_Key_123';
     my $diacritize = WWW::Google::Diacritize->new($api_key);
-    print $diacritize->set_diacritical_marks({lang => 'ar', prettyprint=>'true', message=>'%D9%85%D8%AB%D8%A7%D9%84%20%D9%84%D8%AA%D8%B4%D9%83%D9%8A%D9%84'});
+    print $diacritize->set_diacritical_marks({lang => 'ar', prettyprint=>'true', message=>'مثال لتشكيل'});
 
 =cut
 
@@ -91,25 +93,35 @@ sub set_diacritical_marks
 {
     my $self  = shift;
     my $param = shift;
+    
+    use utf8;
     _validate_param($param);
 
     $param->{prettyprint} = $DEFAULT_PRETTYPRINT
         unless exists($param->{prettyprint});
     $param->{last_letter} = $DEFAULT_LAST_LETTER
         unless exists($param->{last_letter});
-    my $url = sprintf("%s?key=%s", $BASE_URL, $self->{api_key});
+        
+    my ($url, $request, $response, $content);    
+    $url = sprintf("%s?key=%s", $BASE_URL, $self->{api_key});
     $url .= sprintf("&lang=%s", $param->{lang});
-    $url .= sprintf("&message=%s", $param->{message});
+    $url .= sprintf("&message=%s", uri_escape($param->{message}));
     $url .= sprintf("&prettyprint=%s", $param->{prettyprint})
         if exists($param->{prettyprint});
     $url .= sprintf("&last_letter=%s", $param->{last_letter})
         if exists($param->{last_letter});
-    my $request  = HTTP::Request->new(GET => $url);
-    my $response = $self->{browser}->request($request);
+        
+    $request  = HTTP::Request->new(GET => $url);
+    $response = $self->{browser}->request($request);
     croak("ERROR: Could not connect to $url [".$response->status_line."].\n")
         unless $response->is_success;
+    $content  = $response->content();
+    croak("ERROR: No data found.\n")
+        unless defined $content;
 
-    return $response->content;
+    $content  = from_json($content);
+    no utf8;
+    return $content->{data}->{diacritized_text};
 }
 
 sub _validate_param

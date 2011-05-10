@@ -11,6 +11,8 @@ WriteMakefile(
     PREREQ_PM     => {
         'Test::More'     => 0,
         'Readonly'       => 0,
+        'JSON'           => '2.15',
+        'URI::Escape'    => '3.29',
         'HTTP::Request'  => '1.40',
         'LWP::UserAgent' => '2.33',
     },
