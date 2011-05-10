@@ -17,11 +17,11 @@ WWW::Google::Diacritize - Interface to Google Diacritize API.
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 Readonly my $API_VERSION => 'v1';
 Readonly my $LANGUAGES   => ['ar'];
 Readonly my $BASE_URL    => "https://www.googleapis.com/language/diacritize/$API_VERSION";
@@ -83,7 +83,7 @@ the supported language. Returns the diacritized text back.
     use strict; use warnings;
     use WWW::Google::Diacritize;
 
-    my $api_key    = 'Your_API_Key_123';
+    my $api_key    = 'Your_API_Key';
     my $diacritize = WWW::Google::Diacritize->new($api_key);
     print $diacritize->set_diacritical_marks({lang => 'ar', prettyprint=>'true', message=>'مثال لتشكيل'});
 

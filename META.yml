@@ -20,7 +20,7 @@ name: WWW-Google-Diacritize
 provides:
   WWW::Google::Diacritize:
     file: lib/WWW/Google/Diacritize.pm
-    version: 0.04
+    version: 0.05
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.04
+version: 0.05
