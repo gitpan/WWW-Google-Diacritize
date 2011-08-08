@@ -17,11 +17,11 @@ WWW::Google::Diacritize - Interface to Google Diacritize API.
 
 =head1 VERSION
 
-Version 0.05
+Version 0.06
 
 =cut
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 Readonly my $API_VERSION => 'v1';
 Readonly my $LANGUAGES   => ['ar'];
 Readonly my $BASE_URL    => "https://www.googleapis.com/language/diacritize/$API_VERSION";

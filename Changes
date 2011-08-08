@@ -1,5 +1,9 @@
 Revision history for WWW-Google-Diacritize
 
+0.06    Mon Aug 08 10:11:12 2011
+        - Made Readonly v1.03 as minimum requirement.
+        - Prepared the distribution using the Module::Signature v0.68.
+
 0.05    Tue May 10 14:47:39 2011
         - Corrected the pod for method set_diacritical_marks().
 
