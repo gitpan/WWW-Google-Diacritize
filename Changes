@@ -1,5 +1,8 @@
 Revision history for WWW-Google-Diacritize
 
+0.07    Thu Aug 09 07:08:10 2012
+        - Fixed the pod test by adding =encoding utf8.
+
 0.06    Mon Aug 08 10:11:12 2011
         - Made Readonly v1.03 as minimum requirement.
         - Prepared the distribution using the Module::Signature v0.68.

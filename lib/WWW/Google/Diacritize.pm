@@ -17,11 +17,11 @@ WWW::Google::Diacritize - Interface to Google Diacritize API.
 
 =head1 VERSION
 
-Version 0.06
+Version 0.07
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 Readonly my $API_VERSION => 'v1';
 Readonly my $LANGUAGES   => ['ar'];
 Readonly my $BASE_URL    => "https://www.googleapis.com/language/diacritize/$API_VERSION";
@@ -64,9 +64,11 @@ sub new
     bless $self, $class;
     return $self;
 }
+
 =head1 METHODS
 
 =head2 set_diacritical_marks()
+=encoding utf8
 
 Sets the diacritical marks to the given text  in the given language. Arabic  is currently ONLY
 the supported language. Returns the diacritized text back.
@@ -93,7 +95,7 @@ sub set_diacritical_marks
 {
     my $self  = shift;
     my $param = shift;
-    
+
     use utf8;
     _validate_param($param);
 
@@ -101,8 +103,8 @@ sub set_diacritical_marks
         unless exists($param->{prettyprint});
     $param->{last_letter} = $DEFAULT_LAST_LETTER
         unless exists($param->{last_letter});
-        
-    my ($url, $request, $response, $content);    
+
+    my ($url, $request, $response, $content);
     $url = sprintf("%s?key=%s", $BASE_URL, $self->{api_key});
     $url .= sprintf("&lang=%s", $param->{lang});
     $url .= sprintf("&message=%s", uri_escape($param->{message}));
@@ -110,7 +112,7 @@ sub set_diacritical_marks
         if exists($param->{prettyprint});
     $url .= sprintf("&last_letter=%s", $param->{last_letter})
         if exists($param->{last_letter});
-        
+
     $request  = HTTP::Request->new(GET => $url);
     $response = $self->{browser}->request($request);
     croak("ERROR: Could not connect to $url [".$response->status_line."].\n")
